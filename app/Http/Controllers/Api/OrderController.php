@@ -49,8 +49,8 @@ class OrderController extends Controller
         return $order->load('orderItems.menuItem');
     }
 
-    public function show($id)
+    public function show(int $id)
     {
-        return Order::with('orderItems.menuItem', 'table')->findOrFail($id);
+        return Order::with(['orderItems.menuItem', 'table'])->findOrFail($id);
     }
 }

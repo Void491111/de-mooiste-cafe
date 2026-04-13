@@ -14,31 +14,40 @@ class OrdersTable
     {
         return $table
             ->columns([
-                TextColumn::make('table_id')
-                    ->numeric()
+                TextColumn::make('id')
+                    ->label('Order #')
+                    ->sortable(),
+                TextColumn::make('table.table_number')
+                    ->label('Meja')
                     ->sortable(),
                 TextColumn::make('customer_name')
+                    ->label('Customer')
                     ->searchable(),
+                TextColumn::make('orderItems.menuItem.name')
+                    ->label('Pesanan')
+                    ->listWithLineBreaks()
+                    ->limitList(3)
+                    ->expandableLimitedList(),
                 TextColumn::make('status')
-                    ->badge(),
-                TextColumn::make('subtotal')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('tax')
-                    ->numeric()
-                    ->sortable(),
+                    ->badge()
+                    ->color(fn (string $state): string => match ($state) {
+                        'pending' => 'warning',
+                        'preparing' => 'info',
+                        'ready' => 'success',
+                        'done' => 'gray',
+                        default => 'secondary',
+                    }),
                 TextColumn::make('total')
+                    ->label('Total')
                     ->numeric()
+                    ->prefix('Rp ')
                     ->sortable(),
                 TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('updated_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->label('Waktu')
+                    ->dateTime('d M Y, H:i')
+                    ->sortable(),
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 //
             ])

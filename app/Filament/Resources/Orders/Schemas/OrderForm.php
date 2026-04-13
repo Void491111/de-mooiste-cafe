@@ -12,30 +12,33 @@ class OrderForm
     {
         return $schema
             ->components([
-                TextInput::make('table_id')
-                    ->required()
-                    ->numeric(),
                 TextInput::make('customer_name')
+                    ->label('Nama Customer')
                     ->required(),
+                TextInput::make('table_id')
+                    ->label('Table ID')
+                    ->disabled(),
                 Select::make('status')
+                    ->label('Status')
                     ->options([
-            'pending' => 'Pending',
-            'preparing' => 'Preparing',
-            'ready' => 'Ready',
-            'completed' => 'Completed',
-            'cancelled' => 'Cancelled',
-        ])
-                    ->default('pending')
+                        'pending' => 'Pending',
+                        'preparing' => 'Preparing',
+                        'ready' => 'Ready',
+                        'done' => 'Done',
+                    ])
                     ->required(),
                 TextInput::make('subtotal')
-                    ->required()
-                    ->numeric(),
+                    ->label('Subtotal')
+                    ->disabled()
+                    ->prefix('Rp'),
                 TextInput::make('tax')
-                    ->required()
-                    ->numeric(),
+                    ->label('Pajak')
+                    ->disabled()
+                    ->prefix('Rp'),
                 TextInput::make('total')
-                    ->required()
-                    ->numeric(),
+                    ->label('Total')
+                    ->disabled()
+                    ->prefix('Rp'),
             ]);
     }
 }

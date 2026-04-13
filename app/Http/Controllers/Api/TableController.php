@@ -7,7 +7,7 @@ use App\Models\Table;
 
 class TableController extends Controller
 {
-    public function show($tableNumber)
+    public function show(string $tableNumber)
     {
         $table = Table::where('table_number', $tableNumber)->firstOrFail();
         return $table;
