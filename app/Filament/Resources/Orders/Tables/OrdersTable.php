@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources\Orders\Tables;
 
+
+use App\Filament\Resources\Orders\OrderResource;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -53,6 +55,10 @@ class OrdersTable
             ])
             ->recordActions([
                 EditAction::make(),
+                 \Filament\Actions\Action::make('receipt')
+                    ->label('Receipt')
+                    ->icon('heroicon-o-document-text')
+                    ->url(fn ($record) => OrderResource::getUrl('receipt', ['record' => $record])),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
